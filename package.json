@@ -1,0 +1,33 @@
+{
+    "name": "node-exercise09",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "ts-node-dev ./src/index.ts -P tsconfig.json --no-cache",
+        "build": "tsc -P tsconfig.json && node ./dist/index.js",
+        "tslint": "tslint --fix -p tsconfig.json"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^12.7.2",
+        "koa-body": "^4.1.1",
+        "koa-router": "^7.4.0",
+        "ts-node-dev": "^1.0.0-pre.42",
+        "tslint": "^5.19.0",
+        "typescript": "^3.6.2"
+    },
+    "dependencies": {
+        "koa": "^2.8.1",
+        "koa-static": "^5.0.0",
+        "koa-xtime": "^1.0.0",
+        "mysql2": "^1.7.0",
+        "reflect-metadata": "^0.1.13",
+        "sequelize": "^5.17.1",
+        "sequelize-typescript": "^1.0.0",
+        "validate.js": "^0.13.1",
+        "validate.ts": "^2.3.0"
+    }
+}
