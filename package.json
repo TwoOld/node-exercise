@@ -20,6 +20,7 @@
         "typescript": "^3.6.2"
     },
     "dependencies": {
+        "async-validator": "^3.0.4",
         "koa": "^2.8.1",
         "koa-static": "^5.0.0",
         "koa-xtime": "^1.0.0",

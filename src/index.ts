@@ -38,4 +38,24 @@ app.use(router.routes())
 
 app.listen(3000, () => {
   console.log('server listening at 3000')
+
+  !new Promise(resolve => {
+    console.log('resolve1')
+    resolve()
+  }).then(() => console.log('promise then..1'))
+
+  setImmediate(() => {
+    console.log('immediate')
+  })
+  setTimeout(() => {
+    console.log('setTimeout')
+  }, 0)
+
+  process.nextTick(() => {
+    console.log('nextTick')
+    !new Promise(resolve => {
+      console.log('resolve2')
+      resolve()
+    }).then(() => console.log('promise then..2'))
+  })
 })
