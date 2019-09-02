@@ -16,16 +16,32 @@ const validator = rule => (target, propertyKey, descriptor) => {
     const schema = new Schema(rule)
     let err
     try {
-      // await validate.async(ctx.request.body, rule)
-      await schema.validate(ctx.request.body)
+      //   await validate
+      //     .async(
+      //       {
+      //         ...ctx.request.query,
+      //         ...ctx.request.body
+      //       },
+      //       rule
+      //     )
+      //     .catch(error => {
+      //       err = error[Object.keys(error)[0]][0]
+      //       ctx.body = { ok: false, err }
+      //     })
+      await schema
+        .validate({
+          ...ctx.request.query,
+          ...ctx.request.body
+        })
+        .catch(error => {
+          err = error.errors[0].message
+          ctx.body = { ok: false, err }
+        })
     } catch (error) {
-      console.log(error)
-      // err = Object.keys(error)[0] ? error : '服务器出错'
-      err = Object.keys(error)[0] ? error.errors[0].message : '服务器出错'
+      throw error
     }
-    if (err) {
-      ctx.body = { ok: false, err }
-    } else {
+
+    if (!err) {
       return oldVal.apply(null, arguments)
     }
   }
@@ -62,8 +78,25 @@ export default class User {
   @validator({
     name: [{ required: true, message: '请输入用户名' }]
   })
-  @post('/users')
+  @get('/users/info')
   public add(ctx: Koa.Context) {
+    users.push(ctx.request.body)
+    ctx.body = { ok: 1 }
+  }
+
+  //   @validator({
+  //     name: {
+  //       presence: {
+  //         allowEmpty: false,
+  //         message: 'is required'
+  //       }
+  //     }
+  //   })
+  @validator({
+    name: [{ required: true, message: '请输入用户名' }]
+  })
+  @post('/users')
+  public addP(ctx: Koa.Context) {
     users.push(ctx.request.body)
     ctx.body = { ok: 1 }
   }
